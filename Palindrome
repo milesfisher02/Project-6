@@ -1,0 +1,60 @@
+/*
+Miles Fisher 12/14/23
+Program Assignment #6: A program that takes a string and determines if it is a palindrome.
+*/
+
+#include <iostream>
+#include <cctype>
+
+using namespace std;
+
+// Function to check if the input string is a palindrome
+bool isPalindrome(const string& s) {
+    int left = 0;
+    int right = s.length() - 1;
+
+    // Loop comparing characters from start and end positions
+    while (left < right) {
+        // Skip non-letter characters from the start position
+        while (!isalpha(s[left]) && left < right) {
+            left++;
+        }
+
+        // Skip non-letter characters from the end position
+        while (!isalpha(s[right]) && left < right) {
+            right--;
+        }
+
+        // If characters at the current positions don't match (ignoring case), it's not a palindrome
+        if (tolower(s[left]) != tolower(s[right])) {
+            return false;
+        }
+
+        // Move towards the center of the string for comparison
+        left++;
+        right--;
+    }
+
+    // If the loop completes without finding mismatches, it's a palindrome
+    return true;
+}
+
+// Main function
+int main() {
+    try {
+        string userInput;
+        cout << "Enter a string consisting solely of letters: ";
+        cin >> userInput;
+
+        // Check if the input string is a palindrome and display the result
+        if (!isPalindrome(userInput)) {
+            cout << "\"" << userInput << "\" is not a palindrome." << endl;
+        } else {
+            cout << "\"" << userInput << "\" is a palindrome!" << endl;
+        }
+    } catch (...) {
+        cout << "An unexpected error occurred." << endl;
+    }
+
+    return 0;
+}
